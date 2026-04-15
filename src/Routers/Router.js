@@ -7,7 +7,9 @@ import Book from "../Components/Book";
 const router = createBrowserRouter([
     {path:'/',Component:Root,children:[
         {index:true,Component:Home},
-        {path:'books',Component:Books},
+        {path:'books',
+        loader:()=>fetch("http://localhost:5000/books"),
+        Component:Books},
         {path:'book',Component:Book},
     ]},
 ])

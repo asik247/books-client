@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useLoaderData } from 'react-router';
 import Book from './Book';
 
 const Books = () => {
-    const [allBooks, setAllBooks] = useState([]);
-
-    useEffect(() => {
-        fetch("http://localhost:5000/books")
-            .then(res => res.json())
-            .then(data => setAllBooks(data))
-            .catch(err => console.log(err));
-    }, []);
-
+    const allBooks = useLoaderData();
+    console.log(allBooks);
     return (
         <div>
-            <h3>Books here</h3>
-
-            {allBooks.map(singleBook => (
-                <Book
-                    key={singleBook.id}
-                    singleBook={singleBook}
-                />
-            ))}
+            {allBooks.map(singleBook=>(<div>
+                <h2>{singleBook.name}</h2>
+            </div>))}
         </div>
     );
 };
