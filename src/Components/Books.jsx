@@ -8,11 +8,21 @@ const Books = () => {
             .then(data => setAllData(data))
     }, [])
     // Handler
-    const handlerAdd = (e)=>{
+    const handlerAdd = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
         const price = e.target.price.value;
-        console.log('handler Add clicked',name,price);
+        const newBooks = { name, price }
+        console.log('handler Add clicked', name, price);
+        fetch("http://localhost:5000/boi", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newBooks)
+        })
+            .then(res => res.json())
+            .then(data => console.log('Success', data))
     }
     return (
         <div>
