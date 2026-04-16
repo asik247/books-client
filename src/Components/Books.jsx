@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Book from './Book';
+import { data } from 'react-router';
 const Books = () => {
     const [allData, setAllData] = useState([])
     useEffect(() => {
@@ -13,7 +14,7 @@ const Books = () => {
         const name = e.target.name.value;
         const price = e.target.price.value;
         const newBooks = { name, price }
-        console.log('handler Add clicked', name, price);
+        // console.log('handler Add clicked', name, price);
         fetch("http://localhost:5000/boi", {
             method: "POST",
             headers: {
@@ -22,7 +23,14 @@ const Books = () => {
             body: JSON.stringify(newBooks)
         })
             .then(res => res.json())
-            .then(data => console.log('Success', data))
+            .then(data => {
+                console.log('Success', data);
+
+                const updatedBooks = [...allData, data];
+                setAllData(updatedBooks);
+                e.target.reset()
+            });
+
     }
     return (
         <div>
